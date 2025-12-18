@@ -25,7 +25,6 @@ Interfaces for forward-compat:
 ### 1) Install
 
 ```bash
-cd airtag-assistant
 npm install
 ```
 
@@ -42,7 +41,7 @@ Copy/paste `supabase/migrations/001_init.sql` into the Supabase SQL editor and r
 
 ### 3) Configure environment
 
-Create a `.env.local` (for Next.js) and export the same vars for scripts.
+Create a `.env` (for Next.js) and export the same vars for scripts.
 
 Required env vars:
 
@@ -94,13 +93,6 @@ This demo includes commented index options in `supabase/migrations/001_init.sql`
 
 Start without an index for tiny demos, then add one when scaling.
 
-## Troubleshooting
-
-- **Embedding dim mismatch**: If ingest errors with “dim mismatch”, ensure `EMBED_DIM` matches the actual embedding model output and your SQL `vector(N)` dimension.
-- **Missing pgvector**: Ensure the migration ran `create extension if not exists vector;`.
-- **Invalid CF token/account**: `CF_API_TOKEN` must have access to Workers AI; verify `CF_ACCOUNT_ID` and token permissions.
-- **RPC missing**: Re-run the migration or ensure `match_documents` exists and you granted execute if using anon.
-
 ## Sample questions
 
 - “How do I pair an AirTag with my iPhone?”
@@ -110,12 +102,5 @@ Start without an index for tiny demos, then add one when scaling.
 - “How does Lost Mode work?”
 - “What anti-stalking protections exist?”
 
-## Future features (intentionally easy to add)
-
-- Conversation memory + chat history (store messages in Supabase)
-- Streaming responses (Next.js streaming + Workers AI stream)
-- Feedback (thumbs up/down) + analytics
-- Admin upload page for new docs + re-ingest
-- Multi-tenant + auth (Supabase Auth, row-level security)
 
 
