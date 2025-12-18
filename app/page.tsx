@@ -11,9 +11,6 @@ export default function Page() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
           <ThemeToggle />
-          <div className="badge" title="Guardrails enabled">
-            <span>RAG • citations • refusals</span>
-          </div>
         </div>
       </header>
 

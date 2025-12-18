@@ -1,12 +1,17 @@
 import type { ChatProvider, RagPipeline, Retriever, Source } from "@/lib/types";
 import { buildSystemPrompt, buildUserPrompt } from "@/lib/rag/prompt";
-import { enforceGuardrails } from "@/lib/rag/guardrails";
+import { buildSmallTalkReply, classifySmallTalk, enforceGuardrails } from "@/lib/rag/guardrails";
 import { OutOfScopeError, SafetyRefusalError } from "@/lib/errors";
 
 export class DefaultRagPipeline implements RagPipeline {
   constructor(private readonly deps: { retriever: Retriever; chat: ChatProvider }) {}
 
   async run(question: string): Promise<{ answer: string; sources: Source[] }> {
+    const smallTalk = classifySmallTalk(question);
+    if (smallTalk) {
+      return { answer: buildSmallTalkReply(smallTalk.kind), sources: [] };
+    }
+
     try {
       enforceGuardrails(question);
     } catch (e) {
